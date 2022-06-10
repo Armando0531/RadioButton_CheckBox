@@ -56,17 +56,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onClick(View v) {
 
-        boolean checked = ((RadioButton) v).isChecked();
-
-
         switch (v.getId()){
             case R.id.radioBinario:
-                Toast.makeText(this, "BINARIO", Toast.LENGTH_LONG).show();
-                cajaNumeroIngresado.setText("457");
-
+                System.out.println("Entro A binario");
+                if(cajaNumeroIngresado.getText().toString().isEmpty()){
+                    cajaResBinario.setText("0");
+                }else{
+                    if(checkSelec==1){
+                        cajaResBinario.setText(cajaNumeroIngresado.getText().toString());
+                    }else if(checkSelec==2){
+                        numeroIngresado=calculo.binarioADecimal(Integer.parseInt(cajaNumeroIngresado.getText().toString()));
+                        cajaResOctal.setText(calculo.decimalAOctal(numeroIngresado));
+                    }else{
+                        numeroIngresado=calculo.binarioADecimal(Integer.parseInt(cajaNumeroIngresado.getText().toString()));
+                        CajaresHexa.setText(calculo.decimalAHexadecimal(numeroIngresado));
+                    }
+                }
                 break;
             case R.id.radioDecimal:
-                System.out.println("Se selecciono radio Decimal");
+                System.out.println("Entro A Decimal");
                 if(cajaNumeroIngresado.getText().toString().isEmpty()){
                     numeroIngresado=0;
                     cajaNumeroIngresado.setText("0");
@@ -79,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
                         cajaResBinario.setText(resultado+"");
                     }else if(checkSelec==2){
                         cajaResOctal.setText(calculo.decimalAOctal(numeroIngresado));
-                    }else{
-                        cajaResOctal.setText(calculo.decimalAHexadecimal(numeroIngresado));
+                    }else if(checkSelec==3){
+                        CajaresHexa.setText(calculo.decimalAHexadecimal(numeroIngresado));
                     }
                 }
                 break;
@@ -89,6 +97,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.radioOctal:
                 System.out.println("Se selecciono radio Octal");
+                break;
+            case R.id.btn_limpiar:
+                cajaResBinario.setText("");
+                cajaResOctal.setText("");
+                CajaresHexa.setText("");
+                cajaNumeroIngresado.setText("");
+                checkSelec=0;
                 break;
 
             default:
