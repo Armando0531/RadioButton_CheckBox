@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
     public void onClick(View v) {
 
         switch (v.getId()){
@@ -97,6 +96,22 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.radioOctal:
                 System.out.println("Se selecciono radio Octal");
+                if(cajaNumeroIngresado.getText().toString().isEmpty()){
+                    numeroIngresado=0;
+                    cajaNumeroIngresado.setText("0");
+                }else{
+                    numeroIngresado=Integer.parseInt(cajaNumeroIngresado.getText().toString());
+                    if(checkSelec==1){
+                        int dec=calculo.octalADecimal(numeroIngresado);
+                        long res=calculo.decimalABinario(dec);
+                        cajaResBinario.setText(res+"");
+                    }else if(checkSelec==2){
+                        cajaResOctal.setText(cajaNumeroIngresado.getText().toString());
+                    }else if(checkSelec==3){
+                        int dec=calculo.octalADecimal(numeroIngresado);
+                        CajaresHexa.setText(calculo.decimalAHexadecimal(dec));
+                    }
+                }
                 break;
             case R.id.btn_limpiar:
                 cajaResBinario.setText("");
@@ -104,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 CajaresHexa.setText("");
                 cajaNumeroIngresado.setText("");
                 checkSelec=0;
+                checkBinario.setActivated(false);
                 break;
 
             default:
