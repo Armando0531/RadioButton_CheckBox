@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     TextView cajaNumeroIngresado,cajaResOctal,cajaResBinario,CajaresHexa;
     byte checkSelec;
 
+    Converciones calculo =new Converciones();
+
     int numeroIngresado;
 
     @Override
@@ -68,13 +70,17 @@ public class MainActivity extends AppCompatActivity {
                 if(cajaNumeroIngresado.getText().toString().isEmpty()){
                     numeroIngresado=0;
                     cajaNumeroIngresado.setText("0");
+                    long resultado=calculo.decimalABinario(numeroIngresado);
+                    cajaResBinario.setText(resultado+"");
                 }else{
                     numeroIngresado=Integer.parseInt(cajaNumeroIngresado.getText().toString());
-                    System.out.println("Casi entro-->"+checkBinario.isActivated());
                     if(checkSelec==1){
-                        System.out.println("Entre");
-                        long resultado=decimalABinario(numeroIngresado);
+                        long resultado=calculo.decimalABinario(numeroIngresado);
                         cajaResBinario.setText(resultado+"");
+                    }else if(checkSelec==2){
+                        cajaResOctal.setText(calculo.decimalAOctal(numeroIngresado));
+                    }else{
+                        cajaResOctal.setText(calculo.decimalAHexadecimal(numeroIngresado));
                     }
                 }
                 break;
@@ -91,14 +97,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public long decimalABinario(int decimal) {
-        long binario = 0;
-        int digito;
-        final int DIVISOR = 2;
-        for (int i = decimal, j = 0; i > 0; i /= DIVISOR, j++) {
-            digito = i % DIVISOR;
-            binario += digito * Math.pow(10, j);
-        }
-        return binario;
-    }
+
 }
